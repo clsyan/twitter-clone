@@ -8,8 +8,8 @@ using twitter_clone.Context;
 namespace twitter_clone.Migrations
 {
     [DbContext(typeof(ApiContext))]
-    [Migration("20210523121823_PrimaryKey")]
-    partial class PrimaryKey
+    [Migration("20210524221701_setters")]
+    partial class setters
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,26 +19,37 @@ namespace twitter_clone.Migrations
 
             modelBuilder.Entity("UserUser", b =>
                 {
-                    b.Property<int>("FollowersId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("FollowersAt")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("FollowingId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("FollowersEmail")
+                        .HasColumnType("TEXT");
 
-                    b.HasKey("FollowersId", "FollowingId");
+                    b.Property<string>("FollowingAt")
+                        .HasColumnType("TEXT");
 
-                    b.HasIndex("FollowingId");
+                    b.Property<string>("FollowingEmail")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("FollowersAt", "FollowersEmail", "FollowingAt", "FollowingEmail");
+
+                    b.HasIndex("FollowingAt", "FollowingEmail");
 
                     b.ToTable("UserUser");
                 });
 
             modelBuilder.Entity("twitter_clone.Models.User", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("At")
+                        .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("At", "Email");
 
                     b.ToTable("Users");
                 });
@@ -47,13 +58,13 @@ namespace twitter_clone.Migrations
                 {
                     b.HasOne("twitter_clone.Models.User", null)
                         .WithMany()
-                        .HasForeignKey("FollowersId")
+                        .HasForeignKey("FollowersAt", "FollowersEmail")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("twitter_clone.Models.User", null)
                         .WithMany()
-                        .HasForeignKey("FollowingId")
+                        .HasForeignKey("FollowingAt", "FollowingEmail")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

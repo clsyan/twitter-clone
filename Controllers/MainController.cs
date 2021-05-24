@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using twitter_clone.Models;
 using Microsoft.EntityFrameworkCore;
@@ -23,9 +24,19 @@ namespace twitter_clone.Controllers {
         [Route("register")]
         public async Task<IActionResult> AdicinarPost([FromBody] User user)
         {
+            Console.WriteLine(user.Email);
+            Console.WriteLine(user.At);
             if(await _mainservice.UserExists(user)) return BadRequest("User already exists");
             if(user == null) return BadRequest();
-            return Ok(await _mainservice.CreateUser(user));
+            User u = new User() {
+                At = user.At,
+                Username = user.Username,
+                Followers = null,
+                Following = null,
+                Email = user.Email,
+                Joined = DateTime.Now
+            };
+            return Ok(await _mainservice.CreateUser(u));
         }
     }
 
