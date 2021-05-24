@@ -14,6 +14,10 @@ namespace twitter_clone.Context
 
 
         public DbSet<User> Users { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasKey(user=> new {user.At, user.Email});
+        }
         
     }
 }
