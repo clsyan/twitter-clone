@@ -19,6 +19,14 @@ namespace twitter_clone.Controllers {
         async public Task<List<User>> GetUsers() {
             return await _mainservice.GetUsers();
         }
+        [HttpPost]
+        [Route("register")]
+        public async Task<IActionResult> AdicinarPost([FromBody] User user)
+        {
+            if(await _mainservice.UserExists(user)) return BadRequest("User already exists");
+            if(user == null) return BadRequest();
+            return Ok(await _mainservice.CreateUser(user));
+        }
     }
 
 }

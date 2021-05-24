@@ -6,5 +6,7 @@ namespace twitter_clone.Interfaces
 {
     public interface IMainService {
         Task<List<User>> GetUsers();
+        Task<User> CreateUser(User user);
+        Task<bool> UserExists(User user);
     }
 }

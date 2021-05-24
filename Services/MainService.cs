@@ -17,6 +17,15 @@ namespace twitter_clone.Services {
 
         async public Task<List<User>> GetUsers() {
             return await _context.Users.ToListAsync<User>();
+        }
+        async public Task<User> CreateUser(User user) {
+            await _context.Users.AddAsync(user);
+            
+            return user;  
         } 
+        async public Task<bool> UserExists(User user) {
+            if(await _context.Users.FindAsync(user) != null) return true;
+            else return false;
+        }
     }
 } 
