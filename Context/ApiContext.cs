@@ -17,6 +17,8 @@ namespace twitter_clone.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasKey(user=> new {user.At, user.Email});
+            modelBuilder.Entity<User>().HasMany(u => u.Followers)
+            .WithMany(u => u);
         }
         
     }

@@ -26,6 +26,9 @@ namespace twitter_clone
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             var connection = Configuration["ConSqlite:SqliteConStr"];
             services.AddScoped<IMainService, MainService>();
             services.AddDbContext<ApiContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnectionString")));

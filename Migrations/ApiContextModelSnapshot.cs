@@ -48,6 +48,9 @@ namespace twitter_clone.Migrations
                     b.Property<DateTime>("Joined")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Password")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Username")
                         .HasColumnType("TEXT");
 

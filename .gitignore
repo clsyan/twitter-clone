@@ -2,6 +2,8 @@
 [Bb]in/
 [Oo]bj/
 
+#Migrations
+Migrations/
 
 #Database
 *.db
